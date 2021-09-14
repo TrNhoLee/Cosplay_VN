@@ -1,5 +1,5 @@
-import 'package:cosplay_vn/Views/MyHomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:cosplay_vn/Views/MainPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,9 +10,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
       ),
-      home: MyHomePage(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.black
+        )
+      ),
+      themeMode: ThemeMode.dark,
+      home: MainPage(),
     );
   }
 }
