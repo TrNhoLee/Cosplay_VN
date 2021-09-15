@@ -1,7 +1,7 @@
-import 'package:cosplay_vn/Commons/Constants/AppConsts.dart';
 import 'package:flutter/material.dart';
-import 'package:cosplay_vn/ViewModels/HomePage/HomePageViewModel.dart';
-import 'package:cosplay_vn/Views/AccountPage/Childs/ListPicture.dart';
+import 'package:cosplay_vn/Commons/Constants/AppConsts.dart';
+import 'package:cosplay_vn/ViewModels/Home/HomeViewModel.dart';
+import 'package:cosplay_vn/Views/HomePage/Childs/ListPicture.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   //--------------------------------------------
   //ViewModel
   //--------------------------------------------
-  HomePageViewModel _homePageViewModel;
+  HomeViewModel _homeViewModel;
 
   //--------------------------------------------
   //Properties
@@ -24,14 +24,14 @@ class _HomePageState extends State<HomePage> {
   //--------------------------------------------
   @override
   void initState() {
-    _homePageViewModel = HomePageViewModel();
-    _listUrlPicture = _homePageViewModel.getListPicture();
+    _homeViewModel = HomeViewModel();
+    _listUrlPicture = _homeViewModel.getListPicture();
     super.initState();
   }
 
   @override
   void dispose() {
-    _homePageViewModel.dispose();
+    _homeViewModel.dispose();
     super.dispose();
   }
 
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _lstPictureRefresh() async {
     _listUrlPicture =
-        await _homePageViewModel.refreshListPicture(_listUrlPicture);
+        await _homeViewModel.refreshListPicture(_listUrlPicture);
 
     setState(() {
       _listUrlPicture;

@@ -6,3 +6,6 @@ const String lblAccount = "Account";
 
 //Home page
 const String lblButtonAll = "All";
+
+//Search page
+const String hintInputSearch = "Search and find out";

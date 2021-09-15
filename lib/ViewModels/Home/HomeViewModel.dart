@@ -1,4 +1,4 @@
-class HomePageViewModel {
+class HomeViewModel {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
