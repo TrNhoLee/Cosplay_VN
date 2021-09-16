@@ -7,32 +7,60 @@ class ItemPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthItem = MediaQuery.of(context).size.width / 2 - 10;
     return Column(
       children: [
-        Container(
-          child: FlutterLogo(size: 100),
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          width: MediaQuery.of(context).size.width/2 - 10,
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          width: MediaQuery.of(context).size.width/2 - 10,
-          child: _createBottomItem(),
-        ),
+        _createPictureItem(widthItem),
+        _createBottomItem(widthItem),
       ],
     );
   }
 
-  Widget _createBottomItem() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text("6,7n"),
-        IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))
-      ],
+  Widget _createPictureItem(double widthPicture) {
+    return InkWell(
+      child: Stack(
+        children: [
+          Container(
+            height: 300,
+            width: widthPicture,
+            child: FlutterLogo(size: 100),
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+          Container(
+            height: 300,
+            width: widthPicture,
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.favorite, color: Colors.red),
+                    label: Text("6,7n", style: TextStyle(color: Colors.white))),
+                IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))
+              ],
+            ),
+          )
+        ],
+      ),
+      onTap: _itemTap,
     );
   }
+
+  Widget _createBottomItem(double widthBottom) {
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      width: widthBottom,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [SizedBox(height: 10), Text("Nho le"), SizedBox(height: 20)],
+      ),
+    );
+  }
+
+  void _itemTap() {}
 }

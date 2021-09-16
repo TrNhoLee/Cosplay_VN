@@ -65,7 +65,10 @@ class _InputSearchState extends State<InputSearch> {
   }
 
   void _clearInputSearch() {
-    widget.onValueInput.call();
+    if(widget.onValueInput != null) {
+      widget.onValueInput.call();
+    }
+
     _searchController.clear();
     setState(() {
       _enableIconClearSearch = false;
@@ -73,7 +76,9 @@ class _InputSearchState extends State<InputSearch> {
   }
 
   void _inputSearchValueChanged(String value) {
-    widget.onValueChanged.call(value);
+    if(widget.onValueChanged != null) {
+      widget.onValueChanged.call(value);
+    }
 
     if(value.isNotEmpty) {
       setState(() {
@@ -87,6 +92,8 @@ class _InputSearchState extends State<InputSearch> {
   }
 
   void _inputSearchSubmitted(String value) {
-    widget.onValueSubmitted.call(value);
+    if(widget.onValueSubmitted != null) {
+      widget.onValueSubmitted.call(value);
+    }
   }
 }

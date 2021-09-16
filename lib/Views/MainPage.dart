@@ -48,7 +48,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(child: _mainScreens.elementAt(_selectedIndex)),
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: _mainScreens,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
