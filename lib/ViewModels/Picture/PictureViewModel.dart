@@ -57,6 +57,17 @@ class PictureViewModel {
     ];
   }
 
+  List<String> getListOfOtherPictures() {
+    return [
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+    ];
+  }
+
 //--------------------------------------------
 //Private function
 //--------------------------------------------
