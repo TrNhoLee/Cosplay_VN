@@ -1,4 +1,4 @@
-class HomePageViewModel {
+class PictureViewModel {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
@@ -8,7 +8,16 @@ class HomePageViewModel {
   //--------------------------------------------
   void dispose() {}
 
-  List<String> getListPicture() {
+  List<String> getListOfYourPictures() {
+    return [
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+    ];
+  }
+
+  List<String> getListOfSavedImages() {
     return [
       "AA",
       "AA",
@@ -48,9 +57,15 @@ class HomePageViewModel {
     ];
   }
 
-  List<String> refreshListPicture(List<String> currentList) {
-    currentList.add("AA");
-    return currentList;
+  List<String> getListOfOtherPictures() {
+    return [
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+      "AA",
+    ];
   }
 
 //--------------------------------------------

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:cosplay_vn/Views/AccountPage/Childs/ItemPicture.dart';
+import 'package:cosplay_vn/Views/HomePage/Childs/ItemPicture.dart';
 
 class ListPicture extends StatefulWidget {
   final List<String> lstPictureUrl;
