@@ -29,7 +29,35 @@ class ApiServices {
           await CosplayApiServices().getExecutor(apiRequest);
 
       if (apiResponse?.code != successCode) {
-        throw CosplayException.fromJson(apiResponse?.errors);
+        throw CosplayException.fromJson(apiResponse!);
+      }
+
+      for (var row in apiResponse?.data) {
+        result.add(Post.fromJson(row));
+      }
+      return result;
+    } on SocketException {
+      rethrow;
+    } catch (exception) {
+      rethrow;
+    }
+  }
+
+  Future<List<Post>> searchPosts(int page, int size, String keyword) async {
+    try {
+      List<Post> result = [];
+
+      apiRequest.uri = "$apiSearchPosts?keyword=$keyword&page=$page&size=$size";
+      apiRequest.requestHeaders = {
+        "Content-type": "application/json",
+        "Authorization": "$authorization$loginToken"
+      };
+
+      CosplayApiResponse? apiResponse =
+          await CosplayApiServices().getExecutor(apiRequest);
+
+      if (apiResponse?.code != successCode) {
+        throw CosplayException.fromJson(apiResponse!);
       }
 
       for (var row in apiResponse?.data) {

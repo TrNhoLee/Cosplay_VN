@@ -20,11 +20,13 @@ class InputSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.transparent,
       padding: const EdgeInsets.all(8.0),
       child: Obx(() => TextField(
             controller: searchController,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 15),
                 hintText: hintInputSearch,
                 prefixIcon: Icon(Icons.search, color: Colors.grey),
                 suffixIcon: _enableIconClearSearch.value
@@ -33,11 +35,11 @@ class InputSearch extends StatelessWidget {
                         onPressed: _clearInputSearch)
                     : null,
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                  borderRadius: BorderRadius.circular(5),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.3),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)))),
+                    borderRadius: BorderRadius.all(Radius.circular(10)))),
             onChanged: _inputSearchValueChanged,
             onSubmitted: _inputSearchSubmitted,
           )),

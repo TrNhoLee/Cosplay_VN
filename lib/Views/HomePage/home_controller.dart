@@ -13,6 +13,8 @@ class HomeController extends GetxController {
   //--------------------------------------------
   late ScrollController scrollController;
   var posts = <Post>[].obs;
+  var showLoading = false.obs;
+
   int page = 0;
   int size = 20;
 
@@ -26,7 +28,45 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    scrollController.dispose();
     super.onClose();
+  }
+
+  void appBarBtnAllPress() {}
+
+  Future<void> lstPictureRefresh() async {
+    page = 0;
+    getPictures();
+  }
+
+  Future getPictures() async {
+    await _getListPicture(page, size).then((value) {
+      if (value.isEmpty) {
+        return;
+      }
+
+      posts.replaceRange(0, posts.value.length, value);
+      _countPage();
+    }).catchError((error, stackTrace) {
+      _catchException(error as CosplayException);
+    });
+  }
+
+  Future getMorePictures() async {
+    showLoading.value = true;
+    await _getListPicture(page, size).then((value) {
+      showLoading.value = false;
+
+      if (value.isEmpty) {
+        return;
+      }
+
+      posts.addAll(value);
+      _countPage();
+    }).catchError((error, stackTrace) {
+      showLoading.value = false;
+      _catchException(error as CosplayException);
+    });
   }
 
   _initData() async {
@@ -42,55 +82,23 @@ class HomeController extends GetxController {
     });
   }
 
-  Future getPictures() async {
-    await _getListPicture(page, size).then((value) {
-      if(value.isEmpty) {
-        return;
-      }
-
-      page++;
-      posts.replaceRange(0, posts.value.length, value);
-    }).catchError((error, stackTrace) {
-      for (var item in (error as CosplayException).errors) {
-        _catchException(item);
-      }
-    });
-  }
-
-  Future getMorePictures() async {
-    await _getListPicture(page, size).then((value) {
-      if(value.isEmpty) {
-        return;
-      }
-
-      page++;
-      posts.addAll(value);
-    }).catchError((error, stackTrace) {
-      for (var item in (error as CosplayException).errors) {
-        _catchException(item);
-      }
-    });
-  }
-
   Future<List<Post>> _getListPicture(int page, int size) async {
     try {
       return await ApiServices().getDataPosts(page, size);
     } on SocketException {
-      throw CosplayException(errors: [
-        CosplayError(errorMsg: errConnectServer, showType: showErrorPopupType)
-      ]);
+      throw CosplayException(code: defaultCode, errorMsg: errConnectServer);
     } on CosplayException {
       rethrow;
     } catch (exception) {
-      throw CosplayException(errors: [
-        CosplayError(errorMsg: errOther, showType: showErrorPopupType)
-      ]);
+      throw CosplayException(code: defaultCode, errorMsg: errOther);
     }
   }
 
-  void appBarBtnAllPress() {}
+  void _countPage() {
+    page = (posts.value.length / size).round();
+  }
 
-  void _catchException(CosplayError error) {
+  void _catchException(CosplayException error) {
     DialogHelper.showDialog(content: error.errorMsg, actions: [
       CupertinoDialogAction(
         isDefaultAction: true,

@@ -7,6 +7,9 @@ const appBarTheme = AppBarTheme(
     surfaceTintColor: Colors.transparent,
     backgroundColor: Colors.transparent);
 final bottomNavigationBarThemeData = BottomNavigationBarThemeData(
+  elevation: 0,
+  type: BottomNavigationBarType.fixed,
+  backgroundColor: Colors.transparent,
   selectedItemColor: Colors.white,
   unselectedItemColor: Colors.white.withOpacity(0.6),
   selectedIconTheme: const IconThemeData(color: Colors.white, size: 18),

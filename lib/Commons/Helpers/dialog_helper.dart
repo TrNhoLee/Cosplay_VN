@@ -43,8 +43,8 @@ class DialogHelper {
       String? content = "",
       Widget? bodyContent,
       bool? barrierDismissible = true,
-      List<CupertinoDialogAction>? actions}) {
-    return Get.generalDialog(
+      List<CupertinoDialogAction>? actions}) async {
+    return await Get.generalDialog(
         barrierDismissible: barrierDismissible!,
         barrierLabel: title,
         pageBuilder: (BuildContext context, Animation<double> animation,

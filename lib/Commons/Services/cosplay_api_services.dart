@@ -26,44 +26,26 @@ class CosplayApiResponse {
 
   factory CosplayApiResponse.fromJson(Map<dynamic, dynamic> json) {
     return CosplayApiResponse(
-        code: json[kCode],
-        errors: json[kErrors],
-        data: json[kData]);
+        code: json[kCode], errors: json[kErrors], data: json[kData]);
   }
 }
 
-class CosplayException implements Exception {
+class CosplayException {
   // -------------------------------------------------------
   // Field defined
   // -------------------------------------------------------
-  final List<CosplayError> errors;
+  static const kCode = "code";
+  static const kErrorMessage = "error";
 
-  CosplayException({required this.errors});
-
-  factory CosplayException.fromJson(List lst) {
-    return CosplayException(
-        errors: lst.map((errors) => CosplayError.fromJson(errors)).toList());
-  }
-}
-
-class CosplayError {
-  // -------------------------------------------------------
-  // Field defined
-  // -------------------------------------------------------
-  static const kField = "field";
-  static const kErrorMessage = "error_msg";
-  static const kShowType = "show_type";
-
-  late String? field;
+  late int code;
   final String errorMsg;
-  final int showType;
 
-  CosplayError({this.field, required this.errorMsg, required this.showType});
+  CosplayException({required this.code, required this.errorMsg});
 
-  factory CosplayError.fromJson(Map<dynamic, dynamic> json) {
-    return CosplayError(
-        field: json[kField] ?? "",
-        errorMsg: json[kErrorMessage] ?? "",
-        showType: json[kShowType]);
+  factory CosplayException.fromJson(CosplayApiResponse response) {
+    return CosplayException(
+      code: response.code,
+      errorMsg: response.errors,
+    );
   }
 }

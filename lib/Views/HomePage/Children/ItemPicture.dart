@@ -31,27 +31,46 @@ class ItemPicture extends StatelessWidget {
           Container(
             height: 300,
             width: _widthItem,
-            child: post.cover.isEmpty
-                ? FlutterLogo(size: 100)
-                : Image.network(
-                    post.cover,
-                    errorBuilder: (_, __, ___) {
-                      return FlutterLogo(size: 100);
-                    },
-                    fit: BoxFit.cover,
-                  ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: post.cover.isEmpty
+                  ? FlutterLogo(size: 100)
+                  : Image.network(
+                      post.cover,
+                      errorBuilder: (_, __, ___) {
+                        return FlutterLogo(size: 100);
+                      },
+                      fit: BoxFit.cover,
+                    ),
+            ),
             decoration: BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.circular(5),
             ),
           ),
+          post.imageQty > 1
+              ? Container(
+                  height: 300,
+                  alignment: Alignment.topRight,
+                  width: _widthItem,
+                  padding: EdgeInsets.all(5),
+                  child: Icon(Icons.photo_library_outlined, size: 15))
+              : SizedBox.shrink(),
           Container(
             height: 300,
             width: _widthItem,
             alignment: Alignment.bottomCenter,
+            padding: EdgeInsets.only(left: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(
+                  width: _widthItem / 2,
+                  child: Text(post.title,
+                      maxLines: 4,
+                      style: Get.textTheme.titleSmall
+                          ?.copyWith(overflow: TextOverflow.ellipsis)),
+                ),
                 TextButton.icon(
                     onPressed: () {},
                     icon: Icon(
@@ -61,7 +80,6 @@ class ItemPicture extends StatelessWidget {
                         color: Colors.red),
                     label: Text(post.like.toString(),
                         style: TextStyle(color: Colors.white))),
-                IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))
               ],
             ),
           )
@@ -80,7 +98,7 @@ class ItemPicture extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(height: 10),
-          Text(post.title),
+          Text(post.userFullName),
           SizedBox(height: 20)
         ],
       ),

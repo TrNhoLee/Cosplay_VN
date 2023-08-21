@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cosplay_vn/Views/HomePage/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:cosplay_vn/Commons/Constants/app_consts.dart';
@@ -14,24 +16,77 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     controller = Get.find<HomeController>();
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: controller.appBarBtnAllPress,
-          icon: Image.asset(iAll, width: 25, height: 25, color: Colors.white),
-        ),
-      ),
-      body: Center(
-        child: RefreshIndicator(
-          child: SingleChildScrollView(
-            controller: controller.scrollController,
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: Obx(() =>
-                ListPicture(posts: controller.posts.value)),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  tileMode: TileMode.decal,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 15, 15, 15),
+                    Color.fromARGB(255, 75, 45, 75),
+                  ],
+                ),
+              ),
+            ),
           ),
-          onRefresh: controller.getPictures,
-        ),
+          Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+                elevation: 1,
+                leading: IconButton(
+                  onPressed: controller.appBarBtnAllPress,
+                  icon: Image.asset(iAll,
+                      width: 25, height: 25, color: Colors.white),
+                ),
+                flexibleSpace: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                )),
+            body: Center(
+              child: RefreshIndicator(
+                child: SingleChildScrollView(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  child: Column(
+                    children: [
+                      spaceHeader,
+                      Obx(() => ListPicture(posts: controller.posts.value)),
+                      Obx(() => controller.showLoading.value
+                          ? loading
+                          : SizedBox.shrink())
+                    ],
+                  ),
+                ),
+                onRefresh: controller.lstPictureRefresh,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+
+  Widget get spaceHeader =>
+      SizedBox(width: double.infinity, height: AppBar().preferredSize.height);
+
+  Widget get loading => SizedBox(
+        width: double.infinity,
+        height: AppBar().preferredSize.height * 2,
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: CircularProgressIndicator(),
+        ),
+      );
 }
