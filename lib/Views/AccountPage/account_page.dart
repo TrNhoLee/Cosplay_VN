@@ -7,12 +7,10 @@ import 'package:cosplay_vn/Views/AccountPage/Children/block_search.dart';
 import 'package:cosplay_vn/Views/AccountPage/Children/account_info.dart';
 
 class AccountPage extends StatelessWidget {
-  late AccountController controller;
+  final AccountController controller = Get.find<AccountController>();
 
   @override
   Widget build(BuildContext context) {
-    controller = Get.find<AccountController>();
-
     return Scaffold(
       body: Container(
         // padding: EdgeInsets.only(left: 10, right: 10, top: 10),

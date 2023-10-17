@@ -1,3 +1,4 @@
+import 'package:cosplay_vn/Views/Login/login_page.dart';
 import 'package:get/get.dart';
 import 'package:cosplay_vn/Views/MainPage/main_page.dart';
 import 'package:cosplay_vn/Views/MainPage/main_binding.dart';
@@ -10,6 +11,7 @@ import 'package:cosplay_vn/Views/SearchPage/search_page.dart';
 
 class AppRoutes {
   static const loading = "/loading";
+  static const login = "/login";
   static const main = "/main";
   static const home = "/main/home";
   static const account = "/main/account";
@@ -19,6 +21,7 @@ class AppRoutes {
 
   static final List<GetPage> routes = [
     GetPage(name: loading, page: () => LoadingPage()),
+    GetPage(name: login, page: () => LoginPage()),
     GetPage(name: main, page: () => MainPage(), binding: MainBinding()),
     GetPage(name: home, page: () => HomePage()),
     GetPage(name: account, page: () => AccountPage()),

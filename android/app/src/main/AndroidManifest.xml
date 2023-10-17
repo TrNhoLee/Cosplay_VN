@@ -1,10 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cosplay.cosplay_vn">
    <application
-        android:label="cosplay_vn"
-        android:icon="@mipmap/ic_launcher">
+        android:label="CosplayVN"
+       android:name="${applicationName}"
+       android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="com.cosplay.cosplay_vn.MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

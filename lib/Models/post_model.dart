@@ -1,3 +1,5 @@
+import 'package:cosplay_vn/Models/user_info_model.dart';
+
 class Post {
   // -------------------------------------------------------
   // Field defined
@@ -97,37 +99,6 @@ class Post {
       usersLiked: ((json[kUsersLiked] ?? []) as List)
           .map((user) => User.fromJson(user))
           .toList(),
-    );
-  }
-}
-
-class User {
-  // -------------------------------------------------------
-  // Field defined
-  // -------------------------------------------------------
-  static const kId = "id";
-  static const kName = "name";
-  static const kAvatar = "avatar";
-  static const kCreatedAt = "created_at";
-
-  late int id;
-  late String name;
-  late String avatar;
-  late DateTime createdAt;
-
-  User({id, name, avatar, createdAt}) {
-    this.id = id ?? 0;
-    this.name = name ?? "";
-    this.avatar = avatar ?? "";
-    this.createdAt = createdAt ?? DateTime.now();
-  }
-
-  factory User.fromJson(Map<dynamic, dynamic> json) {
-    return User(
-      id: json[kId],
-      name: json[kName],
-      avatar: json[kAvatar],
-      createdAt: DateTime.parse(json[kCreatedAt]),
     );
   }
 }

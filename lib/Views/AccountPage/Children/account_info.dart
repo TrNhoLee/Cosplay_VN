@@ -1,4 +1,7 @@
+import 'package:cosplay_vn/Commons/Helpers/app_routes.dart';
+import 'package:cosplay_vn/Commons/Services/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AccountInfo extends StatelessWidget {
   @override
@@ -93,6 +96,18 @@ class AccountInfo extends StatelessWidget {
     );
   }
 
+  // _createAvatar() {
+  //   return ListTile(
+  //     leading: CircleAvatar(
+  //       backgroundImage:
+  //       NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),
+  //       radius: 20,
+  //     ),
+  //     title: Text(FirebaseAuth.instance.currentUser!.displayName!),
+  //     subtitle: Text(FirebaseAuth.instance.currentUser!.email!),
+  //   );
+  // }
+
   _createInfo() {
     return Column(
       children: [
@@ -101,10 +116,7 @@ class AccountInfo extends StatelessWidget {
           title: Center(
               child: Text("Nho Le",
                   style: TextStyle(color: Colors.white, fontSize: 50))),
-          trailing: IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: _settingInfo,
-          ),
+          trailing: _trailingItem,
         ),
         SizedBox(height: 10),
         Text("@nhonhinho000111", style: TextStyle(color: Colors.white)),
@@ -114,6 +126,46 @@ class AccountInfo extends StatelessWidget {
       ],
     );
   }
+
+  Widget get _trailingItem => PopupMenuButton<int>(
+      offset: const Offset(35, 35),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      icon: Icon(Icons.settings),
+      onSelected: (value) async {
+        switch (value) {
+          case 0:
+            _settingInfo();
+            break;
+          case 1:
+            FirebaseService().signOut();
+            Get.offAllNamed(AppRoutes.login);
+            break;
+          default:
+            break;
+        }
+      },
+      itemBuilder: (context) {
+        List<PopupMenuEntry<int>> itemsMenuButton = [
+          PopupMenuItem(
+              value: 0,
+              child: Text(
+                "Settings",
+                style: Get.context!.textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.normal),
+              )),
+          PopupMenuItem(
+              value: 1,
+              child: Text(
+                "Logout",
+                style: Get.context!.textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.normal),
+              )),
+        ];
+
+        return itemsMenuButton;
+      });
 
   void _changeAvatar() {}
 
