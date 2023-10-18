@@ -1,0 +1,10 @@
+Path: D:\workspace\cosplay_vn\key\cosplay_vn_key.jks
+Password: 	cosplayvn
+Alias:		CosplayVN
+Password: 	cosplayvn
+First and Last Name: CosplayVN
+Organizational unit: CosplayVN
+Organizational: CosplayVN
+City or Location: Ho Chi Minh
+State or province: District 3
+Country Code: 84
