@@ -1,6 +1,7 @@
 const authorization = "Bearer ";
 
 //Login page
+const String providerGoogleValue = "google";
 const String loginGoogleButtonLabel = "Sign in with Google";
 const String iconGoogleUrl = "assets/image/google_logo.png";
 

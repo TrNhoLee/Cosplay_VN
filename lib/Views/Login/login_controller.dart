@@ -6,6 +6,8 @@ import 'package:cosplay_vn/Commons/Helpers/dialog_helper.dart';
 import 'package:cosplay_vn/Commons/Services/api_services.dart';
 import 'package:cosplay_vn/Commons/Services/cosplay_api_services.dart';
 import 'package:cosplay_vn/Commons/Services/firebase_service.dart';
+import 'package:cosplay_vn/Models/check_token_model.dart';
+import 'package:cosplay_vn/Models/user_info_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +17,7 @@ class LoginController extends GetxController {
   //--------------------------------------------
   final firebaseServices = FirebaseService();
   late Future<bool> isLogged;
+  var currentUser = User().obs;
 
   @override
   void onInit() {
@@ -32,7 +35,7 @@ class LoginController extends GetxController {
   loginGoogle() async {
     try {
       firebaseServices.signInWithGoogle().then((value) async {
-        checkToken();
+        checkTokenLogin();
       });
     } catch (error) {
       _catchException(
@@ -40,19 +43,31 @@ class LoginController extends GetxController {
     }
   }
 
-  Future checkToken() async {
-    _checkToken().then((value) {
-      if (!value) {
-        _signOut();
-        return;
-      }
-
+  Future checkTokenLogin() async {
+    DialogHelper.showDialogLoading();
+    _checkToken().then((infoTokenResponse) {
+      ApiServices.loginToken = infoTokenResponse.token;
+      currentUser.value = infoTokenResponse.user;
       _getDataUserById().then((value) {
-        if (!value) {
-          _signOut();
-          return;
-        }
+        DialogHelper.closeDialogLoading();
+        Get.toNamed(AppRoutes.main);
+      }).catchError((error, stackTrace) {
+        _signOut();
+        DialogHelper.closeDialogLoading();
+        _catchException(error as CosplayException);
+      });
+    }).catchError((error, stackTrace) {
+      _signOut();
+      DialogHelper.closeDialogLoading();
+      _catchException(error as CosplayException);
+    });
+  }
 
+  Future checkTokenAutoLogin() async {
+    _checkToken().then((infoTokenResponse) {
+      ApiServices.loginToken = infoTokenResponse.token;
+      currentUser.value = infoTokenResponse.user;
+      _getDataUserById().then((value) {
         Get.toNamed(AppRoutes.main);
       }).catchError((error, stackTrace) {
         _signOut();
@@ -64,9 +79,11 @@ class LoginController extends GetxController {
     });
   }
 
-  Future<bool> _checkToken() async {
+  Future<CheckTokenResponse> _checkToken() async {
     try {
-      return await ApiServices().checkToken();
+      return await ApiServices().checkToken(CheckTokenRequest(
+          provider: providerGoogleValue,
+          token: ApiServices.firebaseAccessToken));
     } on SocketException {
       throw CosplayException(code: defaultCode, errorMsg: errConnectServer);
     } on CosplayException {

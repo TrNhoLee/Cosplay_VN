@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cosplay_vn/Commons/Constants/app_consts.dart';
 import 'package:cosplay_vn/Commons/Constants/api_consts.dart';
 import 'package:cosplay_vn/Commons/Services/common_api_services.dart';
 import 'package:cosplay_vn/Commons/Services/cosplay_api_services.dart';
+import 'package:cosplay_vn/Models/check_token_model.dart';
 import 'package:cosplay_vn/Models/post_model.dart';
 import 'package:cosplay_vn/Models/user_info_model.dart';
 
@@ -14,24 +16,26 @@ class ApiServices {
   static const createdCode = 201;
   static const deletedCode = 204;
   static const errorBadCode = 400;
+  static String firebaseAccessToken = "";
   static String loginToken = "";
 
-  Future<bool> checkToken() async {
+  Future<CheckTokenResponse> checkToken(CheckTokenRequest checkTokenRequest) async {
     try {
       apiRequest.uri = apiCheckToken;
+      apiRequest.body = jsonEncode(checkTokenRequest);
       apiRequest.requestHeaders = {
         "Content-type": "application/json",
-        "Authorization": "$authorization$loginToken"
+        "Authorization": "$authorization$firebaseAccessToken"
       };
 
       CosplayApiResponse? apiResponse =
-      await CosplayApiServices().getExecutor(apiRequest);
+          await CosplayApiServices().postExecutor(apiRequest);
 
       if (apiResponse?.code != successCode) {
         throw CosplayException.fromJson(apiResponse!);
       }
 
-      return true;
+      return CheckTokenResponse.fromJson(apiResponse?.data);
     } on SocketException {
       rethrow;
     } catch (exception) {

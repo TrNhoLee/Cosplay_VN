@@ -17,7 +17,8 @@ class FirebaseService {
             accessToken: googleSignInAuthentication.accessToken,
             idToken: googleSignInAuthentication.idToken);
         await _auth.signInWithCredential(authCredential);
-        ApiServices.loginToken = googleSignInAuthentication.accessToken ?? "";
+        ApiServices.firebaseAccessToken =
+            googleSignInAuthentication.accessToken ?? "";
       }
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
@@ -38,6 +39,14 @@ class FirebaseService {
 
     if (currentUser != null) {
       await currentUser.reload();
+
+      GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+
+      if (googleSignInAccount != null) {
+        await googleSignInAccount.authentication;
+        ApiServices.firebaseAccessToken =
+            (await googleSignInAccount.authentication).accessToken ?? "";
+      }
     }
 
     return currentUser != null;

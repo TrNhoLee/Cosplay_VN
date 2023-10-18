@@ -12,7 +12,7 @@ class LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () async {
       if(await controller.isLogged) {
-        return controller.checkToken();
+        return controller.checkTokenAutoLogin();
       }
 
       Get.toNamed(AppRoutes.login);
