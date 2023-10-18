@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cosplay_vn/Views/HomePage/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:cosplay_vn/Commons/Constants/app_consts.dart';
@@ -10,12 +9,10 @@ class HomePage extends StatelessWidget {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
-  late HomeController controller;
+  final HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
-    controller = Get.find<HomeController>();
-
     return WillPopScope(
       onWillPop: () async {
         return true;

@@ -9,15 +9,13 @@ class SearchPage extends StatelessWidget {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
-  late search.SearchController controller;
+  final search.SearchController controller = Get.find<search.SearchController>();
 
   //--------------------------------------------
   //Widget
   //--------------------------------------------
   @override
   Widget build(BuildContext context) {
-    controller = Get.find<search.SearchController>();
-
     return WillPopScope(
       onWillPop: () async {
         return true;
@@ -71,7 +69,7 @@ class SearchPage extends StatelessWidget {
         padding: EdgeInsets.only(top: 10, bottom: 10),
         child: Column(
           children: [
-            ListPicture(posts: controller.lstPicture.value),
+            ListPicture(posts: controller.lstPicture),
             Obx(() =>
                 controller.showLoading.value ? loading : SizedBox.shrink())
           ],

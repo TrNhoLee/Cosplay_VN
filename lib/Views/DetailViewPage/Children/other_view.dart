@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OtherView extends StatelessWidget {
-  late DetailViewController controller;
+  final DetailViewController controller = Get.find<DetailViewController>();
 
   @override
   Widget build(BuildContext context) {
-    controller = Get.find<DetailViewController>();
-
     return Column(
       children: [
         ListTile(

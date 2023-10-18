@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DetailView extends StatelessWidget {
-  double _heightImage = 300;
+  final double _heightImage = 300;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,6 @@ class DetailView extends StatelessWidget {
         _createBottomItem(),
       ],
     );
-    ;
   }
 
   Widget _createPictureItem() {

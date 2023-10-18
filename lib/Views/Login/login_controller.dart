@@ -8,6 +8,7 @@ import 'package:cosplay_vn/Commons/Services/cosplay_api_services.dart';
 import 'package:cosplay_vn/Commons/Services/firebase_service.dart';
 import 'package:cosplay_vn/Models/check_token_model.dart';
 import 'package:cosplay_vn/Models/user_info_model.dart';
+import 'package:cosplay_vn/Views/AccountPage/account_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +18,6 @@ class LoginController extends GetxController {
   //--------------------------------------------
   final firebaseServices = FirebaseService();
   late Future<bool> isLogged;
-  var currentUser = User().obs;
 
   @override
   void onInit() {
@@ -47,7 +47,6 @@ class LoginController extends GetxController {
     DialogHelper.showDialogLoading();
     _checkToken().then((infoTokenResponse) {
       ApiServices.loginToken = infoTokenResponse.token;
-      currentUser.value = infoTokenResponse.user;
       _getDataUserById().then((value) {
         DialogHelper.closeDialogLoading();
         Get.toNamed(AppRoutes.main);
@@ -66,7 +65,6 @@ class LoginController extends GetxController {
   Future checkTokenAutoLogin() async {
     _checkToken().then((infoTokenResponse) {
       ApiServices.loginToken = infoTokenResponse.token;
-      currentUser.value = infoTokenResponse.user;
       _getDataUserById().then((value) {
         Get.toNamed(AppRoutes.main);
       }).catchError((error, stackTrace) {

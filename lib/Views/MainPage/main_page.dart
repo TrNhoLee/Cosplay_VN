@@ -13,7 +13,7 @@ class MainPage extends StatelessWidget {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
-  late MainController controller;
+  final MainController controller = Get.put(MainController());
   final List<Widget> _widgetOptions = [];
 
   //--------------------------------------------
@@ -21,7 +21,6 @@ class MainPage extends StatelessWidget {
   //--------------------------------------------
   @override
   Widget build(BuildContext context) {
-    controller = Get.put(MainController());
     _widgetOptions.addAll([
       topPage,
       searchPage,

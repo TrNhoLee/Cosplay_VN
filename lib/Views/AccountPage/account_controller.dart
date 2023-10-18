@@ -31,9 +31,9 @@ class AccountController extends GetxController {
 
   Future getAccountInfo() async {
     await _getAccountInfo().then((value) {
-      userInfo.value = value;
+      userInfo.value.user = value;
       listYourPicture.addAll(userInfo.value.posts);
-      getListOfSavedImages();
+      // getListOfSavedImages();
     }).catchError((error, stackTrace) {
       _catchException(error as CosplayException);
     });
@@ -55,7 +55,7 @@ class AccountController extends GetxController {
         return;
       }
 
-      listPictureSaved.replaceRange(0, listPictureSaved.value.length, value);
+      listPictureSaved.replaceRange(0, listPictureSaved.length, value);
       _countPage();
     }).catchError((error, stackTrace) {
       _catchException(error as CosplayException);
@@ -65,10 +65,10 @@ class AccountController extends GetxController {
   Future<void> accountRefresh() async {}
 
   void _countPage() {
-    page = (listPictureSaved.value.length / size).round();
+    page = (listPictureSaved.length / size).round();
   }
 
-  Future<UserInfo> _getAccountInfo() async {
+  Future<User> _getAccountInfo() async {
     try {
       return await ApiServices().getAccountInfo();
     } on SocketException {

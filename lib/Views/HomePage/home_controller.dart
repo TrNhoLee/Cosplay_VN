@@ -11,7 +11,7 @@ class HomeController extends GetxController {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
-  late ScrollController scrollController;
+  final ScrollController scrollController = ScrollController();
   var posts = <Post>[].obs;
   var showLoading = false.obs;
 
@@ -21,7 +21,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    scrollController = ScrollController();
     _initData();
     _initEvent();
   }
@@ -32,7 +31,9 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void appBarBtnAllPress() {}
+  void appBarBtnAllPress() {
+    lstPictureRefresh();
+  }
 
   Future<void> lstPictureRefresh() async {
     page = 0;
@@ -45,7 +46,7 @@ class HomeController extends GetxController {
         return;
       }
 
-      posts.replaceRange(0, posts.value.length, value);
+      posts.replaceRange(0, posts.length, value);
       _countPage();
     }).catchError((error, stackTrace) {
       _catchException(error as CosplayException);
@@ -95,7 +96,7 @@ class HomeController extends GetxController {
   }
 
   void _countPage() {
-    page = (posts.value.length / size).round();
+    page = (posts.length / size).round();
   }
 
   void _catchException(CosplayException error) {

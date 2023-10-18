@@ -75,7 +75,7 @@ class Post {
     this.userFullName = userFullName ?? "";
     this.userUserName = userUserName ?? "";
     this.userFrame = userFrame ?? "";
-    this.usersLiked = usersLiked ?? 0;
+    this.usersLiked = usersLiked ?? [];
   }
 
   factory Post.fromJson(Map<dynamic, dynamic> json) {

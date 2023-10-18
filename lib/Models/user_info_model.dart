@@ -168,8 +168,8 @@ class User {
   late String avatar;
   late String emailVerifiedAt;
   late String rememberToken;
-  late DateTime createdAt;
-  late DateTime updatedAt;
+  late DateTime? createdAt;
+  late DateTime? updatedAt;
   late int status;
   late int postCount;
   late int imageCount;
@@ -211,8 +211,8 @@ class User {
     this.avatar = avatar ?? "";
     this.emailVerifiedAt = emailVerifiedAt ?? "";
     this.rememberToken = rememberToken ?? "";
-    this.createdAt = createdAt ?? DateTime.now();
-    this.updatedAt = updatedAt ?? DateTime.now();
+    this.createdAt = DateTime.tryParse(createdAt ?? "");
+    this.updatedAt = DateTime.tryParse(updatedAt ?? "");
     this.status = status ?? 0;
     this.postCount = postCount ?? 0;
     this.imageCount = imageCount ?? 0;
@@ -235,8 +235,8 @@ class User {
       avatar: json[kAvatar],
       emailVerifiedAt: json[kEmailVerifiedAt],
       rememberToken: json[kRememberToken],
-      createdAt: DateTime.parse(json[kCreatedAt]),
-      updatedAt: DateTime.parse(json[kUpdatedAt]),
+      createdAt: json[kCreatedAt],
+      updatedAt: json[kUpdatedAt],
       status: json[kStatus],
       postCount: json[kPostCount],
       imageCount: json[kImageCount],

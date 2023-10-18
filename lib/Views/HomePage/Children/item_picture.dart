@@ -1,11 +1,12 @@
 import 'package:cosplay_vn/Commons/Helpers/app_routes.dart';
 import 'package:cosplay_vn/Models/post_model.dart';
+import 'package:cosplay_vn/Views/HomePage/Children/image_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ItemPicture extends StatelessWidget {
   final Post post;
-  double _widthItem = 0;
+  final double _widthItem = Get.width / 2 - 10;
 
   ItemPicture({super.key, required this.post});
 
@@ -14,8 +15,6 @@ class ItemPicture extends StatelessWidget {
   //--------------------------------------------
   @override
   Widget build(BuildContext context) {
-    _widthItem = MediaQuery.of(context).size.width / 2 - 10;
-
     return Column(
       children: [
         _createPictureItem(),
@@ -33,18 +32,14 @@ class ItemPicture extends StatelessWidget {
             width: _widthItem,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: post.cover.isEmpty
-                  ? FlutterLogo(size: 100)
-                  : Image.network(
-                      post.cover,
-                      errorBuilder: (_, __, ___) {
-                        return FlutterLogo(size: 100);
-                      },
-                      fit: BoxFit.cover,
-                    ),
+              child: ImageCustom.network(
+                url: post.cover,
+                placeholder: const SizedBox.shrink(),
+                errorWidget: const Center(child: Icon(Icons.broken_image)),
+              ),
             ),
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.grey.withOpacity(0.2),
               borderRadius: BorderRadius.circular(5),
             ),
           ),

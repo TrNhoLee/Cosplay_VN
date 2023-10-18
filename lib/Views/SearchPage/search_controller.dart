@@ -57,7 +57,7 @@ class SearchController extends GetxController {
     }
 
     await _searchPosts(page, size, keyword).then((value) {
-      lstPicture.replaceRange(0, lstPicture.value.length, value);
+      lstPicture.replaceRange(0, lstPicture.length, value);
       _countPage();
     }).catchError((error, stackTrace) {
       _catchException(error as CosplayException);
@@ -119,7 +119,7 @@ class SearchController extends GetxController {
   }
 
   void _countPage() {
-    page = (lstPicture.value.length / size).round();
+    page = (lstPicture.length / size).round();
   }
 
   void _catchException(CosplayException error) async {

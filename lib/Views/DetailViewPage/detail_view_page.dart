@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailViewPage extends StatelessWidget {
-  late DetailViewController controller;
+  final DetailViewController controller = Get.put(DetailViewController());
 
   @override
   Widget build(BuildContext context) {
-    controller = Get.put(DetailViewController());
-
     return Scaffold(
       body: ListView(
         children: [

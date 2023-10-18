@@ -2,7 +2,7 @@ import 'package:cosplay_vn/Commons/Constants/app_consts.dart';
 import 'package:flutter/material.dart';
 
 class BlockSearch extends StatelessWidget {
-  FocusNode _focus = new FocusNode();
+  final FocusNode _focus = new FocusNode();
   final VoidCallback onFocus;
   final VoidCallback onFilterClicked;
   final VoidCallback onAddClicked;
@@ -16,9 +16,7 @@ class BlockSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _focus.addListener(() {
-      if (onFocus != null) {
-        onFocus.call();
-      }
+      onFocus.call();
     });
 
     return Container(
@@ -45,18 +43,14 @@ class BlockSearch extends StatelessWidget {
               child: IconButton(
                   icon: Icon(Icons.sort),
                   onPressed: () {
-                    if (onFilterClicked != null) {
-                      onFilterClicked.call();
-                    }
+                    onFilterClicked.call();
                   }),
               flex: 1),
           Expanded(
               child: IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                    if (onAddClicked != null) {
-                      onAddClicked.call();
-                    }
+                    onAddClicked.call();
                   }),
               flex: 1)
         ],

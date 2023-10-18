@@ -7,16 +7,12 @@ class NotificationPage extends StatelessWidget {
   //--------------------------------------------
   //Properties
   //--------------------------------------------
-  late NotificationController controller;
+  final NotificationController controller = Get.find<NotificationController>();
 
   @override
   Widget build(BuildContext context) {
-    controller = Get.find<NotificationController>();
-
     return Scaffold(
-      body: Center(
-          child: Text(lblNoti)
-      ),
+      body: Center(child: Text(lblNoti)),
     );
   }
 }

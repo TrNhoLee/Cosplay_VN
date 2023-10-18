@@ -1,6 +1,6 @@
 import 'package:cosplay_vn/Models/post_model.dart';
 import 'package:flutter/material.dart';
-import 'package:cosplay_vn/Views/HomePage/Children/ItemPicture.dart';
+import 'package:cosplay_vn/Views/HomePage/Children/item_picture.dart';
 
 class ListPicture extends StatelessWidget {
   final List<Post> posts;

@@ -86,6 +86,7 @@ class ApiServices {
       for (var row in apiResponse?.data) {
         result.add(Post.fromJson(row));
       }
+
       return result;
     } on SocketException {
       rethrow;
@@ -173,7 +174,7 @@ class ApiServices {
     }
   }
 
-  Future<UserInfo> getAccountInfo() async {
+  Future<User> getAccountInfo() async {
     try {
       apiRequest.uri = apiAccountInfo;
       apiRequest.requestHeaders = {
@@ -188,7 +189,7 @@ class ApiServices {
         throw CosplayException.fromJson(apiResponse!);
       }
 
-      return UserInfo.fromJson(apiResponse?.data);
+      return User.fromJson(apiResponse?.data);
     } on SocketException {
       rethrow;
     } catch (exception) {
