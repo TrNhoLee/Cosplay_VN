@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "54347310597",
+    "project_id": "cosplay-377307",
+    "storage_bucket": "cosplay-377307.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54347310597:android:7070f895672923aebe9e6c",
+        "android_client_info": {
+          "package_name": "com.cosplay.cosplay_vn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54347310597-p6231pluis2nq346t6t1ra0tp6gt48ud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cosplay.cosplay_vn",
+            "certificate_hash": "73d506c7059e3ad1c27ff9e40fecf81135b8d96e"
+          }
+        },
+        {
+          "client_id": "54347310597-iu9ouhoq4vfb20taat9j8sqbkh9hjkj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCS8A5DWtt4bQsQg9yCiijVeRNJlTYEVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54347310597-bmuvu4fquk1de5gak3vnsk6h3i0evoc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
